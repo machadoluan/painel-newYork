@@ -4,11 +4,18 @@ import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { LoginComponent } from '../../components/login/login.component';
 import { AuthService } from '../../service/auth.service';
+import { CarouselModule } from 'primeng/carousel';
+import { Item } from '../../types/itens.type';
+import { findIndex } from 'rxjs';
+
 
 @Component({
   selector: 'app-inicio',
   standalone: true,
-  imports: [CommonModule],
+  imports: [
+    CommonModule,
+    CarouselModule
+  ],
   templateUrl: './inicio.component.html',
   styleUrl: './inicio.component.scss'
 })
@@ -26,30 +33,35 @@ export class InicioComponent implements OnInit {
   dropDown: boolean = true;
   iconDrop: boolean = true;
   entrar: boolean = true;
-  user: any
-
+  showCarrinho: boolean = false;
+  user: any;
+  items: Item[] = [
+    { title: 'Passaporte VIP PRATA', description: "Eleve sua experiência com nosso pacote VIP exclusivo. Destaque-se e conquiste a cidade!", quantity: 1, price: 25 },
+    { title: 'Passaporte VIP OURO', description: "Seja o destaque na cidade com nosso pacote VIP. Domine o jogo e surpreenda a todos!", quantity: 1, price: 65 },
+    { title: 'Passaporte VIP DIAMANTE', description: "Desfrute de privilégios especiais com nosso VIP. Conquiste a cidade com estilo e vantagens exclusivas!", quantity: 1, price: 125 }
+  ]
+  carrinho: Item[] = []
 
   constructor(
     private router: Router,
     private dialog: MatDialog,
     private auth: AuthService
-
   ) { }
 
   ngOnInit(): void {
-      const token = localStorage.getItem('Token')
-      if(token) {
-        this.entrar = false;
-      } else {
-        this.entrar = true;
-      }
+    const token = localStorage.getItem('Token')
+    if (token) {
+      this.entrar = false;
+    } else {
+      this.entrar = true;
+    }
 
-      this.user = this.auth.getUserFromToken()
-   }
+    this.user = this.auth.getUserFromToken()
+  }
 
-   getAvatar(userId: string, avatar: string) {
-      return `https://cdn.discordapp.com/avatars/${userId}/${avatar}.png`
-   }
+  getAvatar(userId: string, avatar: string) {
+    return `https://cdn.discordapp.com/avatars/${userId}/${avatar}.png`
+  }
 
 
   login() {
@@ -98,5 +110,32 @@ export class InicioComponent implements OnInit {
     } else if (this.backgroundVideo.nativeElement.msRequestFullscreen) { /* IE/Edge */
       this.backgroundVideo.nativeElement.msRequestFullscreen();
     }
+  }
+
+  cart(){
+    this.showCarrinho = !this.showCarrinho
+  }
+
+  addCart(item: Item): void {
+    const itemIndex = this.carrinho.findIndex(cartItem =>
+      cartItem.title === item.title
+    )
+    if (itemIndex > -1) {
+      console.log('Ja tem um item no carrinho.')
+
+    } else {
+      this.carrinho.push({ ...item });
+
+    }
+    console.log("Item foi adicionado ao carrinho", item)
+    console.log("Carrinho: ", this.carrinho)
+  }
+
+  removeCart(item: Item){
+    this.carrinho  = this.carrinho.filter(cartItem => cartItem.title !== item.title)
+  }
+
+  comprarVip() {
+
   }
 }

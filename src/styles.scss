@@ -1,5 +1,8 @@
 /* You can add global styles to this file, and also import other style files */
 @import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap');
+
+
+
 * {
   margin: 0;
   padding: 0;
@@ -8,11 +11,6 @@
   text-decoration: none;
   font-family: "DM Sans", sans-serif;
   color: white;
-
-}
-
-body {
-  background-color: #222728;
 }
 
 /* scrollbar */
@@ -33,8 +31,9 @@ body::-webkit-scrollbar-thumb {
   /* roundness of the scroll thumb */
 }
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+html,
+body {
+  height: 100%;
+  background-color: #222728;
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+}
