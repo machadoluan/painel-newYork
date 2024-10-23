@@ -1,6 +1,6 @@
 /* You can add global styles to this file, and also import other style files */
 @import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap');
-
+@import '../public/variables.scss';
 
 
 * {
@@ -25,7 +25,7 @@ body::-webkit-scrollbar-track {
 }
 
 body::-webkit-scrollbar-thumb {
-  background-color: #dcaf82;
+  background-color: $primary;
   /* color of the scroll thumb */
   border-radius: 20px;
   /* roundness of the scroll thumb */

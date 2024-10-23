@@ -13,9 +13,14 @@
             <div class="compra">
                 <i class="fa-solid fa-cart-shopping"></i>
             </div>
-            <div class="login">
+
+            <div class="login" (click)="login()" [ngClass]="{'d-flex': entrar, 'd-none': !entrar}">
                 <i class="fa-solid fa-user"></i>
                 Login
+            </div>
+
+            <div class="conta" [ngClass]="{'d-flex': !entrar, 'd-none': entrar}" *ngIf="user">
+                <a href="/dashboard"><img [src]="getAvatar(user.id, user.avatar)" alt=""></a>
             </div>
         </div>
 

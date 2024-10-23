@@ -114,7 +114,7 @@ export class InicioComponent implements OnInit {
     }
   }
 
-  cart(){
+  cart() {
     this.showCarrinho = !this.showCarrinho
   }
 
@@ -133,8 +133,8 @@ export class InicioComponent implements OnInit {
     console.log("Carrinho: ", this.carrinho)
   }
 
-  removeCart(item: Item){
-    this.carrinho  = this.carrinho.filter(cartItem => cartItem.title !== item.title)
+  removeCart(item: Item) {
+    this.carrinho = this.carrinho.filter(cartItem => cartItem.title !== item.title)
   }
 
   comprarVip() {
