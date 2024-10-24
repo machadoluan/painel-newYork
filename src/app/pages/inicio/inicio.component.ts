@@ -1,4 +1,4 @@
-import { Component, ElementRef, ViewChild, OnInit } from '@angular/core';
+import { Component, ElementRef, ViewChild, OnInit, ChangeDetectionStrategy, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
@@ -8,6 +8,8 @@ import { CarouselModule } from 'primeng/carousel';
 import { Item } from '../../types/itens.type';
 import { findIndex } from 'rxjs';
 import { HeaderComponent } from '../../components/header/header.component';
+import {MatExpansionModule} from '@angular/material/expansion';
+import { FooterComponent } from '../../components/footer/footer.component';
 
 
 @Component({
@@ -16,12 +18,17 @@ import { HeaderComponent } from '../../components/header/header.component';
   imports: [
     CommonModule,
     CarouselModule,
-    HeaderComponent
+    HeaderComponent,
+    MatExpansionModule,
+    FooterComponent
   ],
   templateUrl: './inicio.component.html',
-  styleUrl: './inicio.component.scss'
+  styleUrl: './inicio.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class InicioComponent implements OnInit {
+  readonly panelOpenState = signal(false); 
+  
   @ViewChild('backgroundVideo') backgroundVideo!: ElementRef;
   @ViewChild('btnParar') btnParar!: ElementRef;
   @ViewChild('btnAudio') btnAudio!: ElementRef;
@@ -60,6 +67,7 @@ export class InicioComponent implements OnInit {
 
     this.user = this.auth.getUserFromToken()
   }
+
 
   getAvatar(userId: string, avatar: string) {
     return `https://cdn.discordapp.com/avatars/${userId}/${avatar}.png`
